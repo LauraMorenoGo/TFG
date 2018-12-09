@@ -54,18 +54,18 @@ def myregress(tC,RSave,plotFlag):
         plot(log2(tC),rectaReg,'r--');
     end
     """
-    x = [np.ones((len(tC),1), Float), np.log2(tC)]
+    x = np.log2(tC)
     y = np.log2(RSave)
-    [c,cint,r,rint,stats] = regress(y,x,0.05)
-    rectaReg = x*c
+    m,n,r_value,p_value,stderr = stats.linregress(x,y)
     barrasError = np.abs(rint[:,0]-r)
     H = np.abs(c(2))
 
     #Plot
     if plotFlag:
-        plot(np.log2(tC),y,'o-')
-        plot(np.log2(tC),rectaReg,'r--')
-        show()
+        plt.plot(np.log2(tC),y,'o-')
+        plt.plot(np.log2(tC),rectaReg,'r--')
+        #show()
+        
     return H
 
 rw = random_walk(1100)
@@ -78,28 +78,29 @@ numIter = 1
 RSave = []
 cajas = 1
 tC = [tamCaja]
-while (tamCaja >= 8):
+while(tamCaja >= 8):
     inds = []
-    m = 1
-    for l in 0:cajas #Index for this segment lenght
-        indsaux = [m : m+tamCaja-1]
+    m = 0 #index in python begins in 0
+    for l in range(cajas): #Index for this segment lenght
+        indsaux = np.arange(m,m+tamCaja)
         m = m + tamCaja
-        inds = [inds; indsaux]   
-    
+        inds.append(indsaux)
+
     
     RSiter = []
-    for g in 0:size(inds,1) #RS compute for this segment length
-        RSaux = rs_calc(datosAux(inds[g,:]))
-        RSiter = [RSiter; RSaux]   
+    for ind in inds: #RS compute for this segment length
+        RSaux = rs_calc(datosAux[ind])
+        RSiter.append(RSaux)   
     
-    RSave = [RSave;np.mean(RSiter)]    
+    RSave.append(np.mean(RSiter))
     numIter = numIter + 1
-    tamCaja = tamCaja / 2
+    tamCaja = int(tamCaja / 2)
     cajas = 2**(numIter-1)
-    tC = [tC;tamCaja]
+    tC.append(tamCaja)
 
-tC = tC[0:end-1]
+tC = tC[0:-1]
 
+myregress(tC,RSave,1)
 
 """matlab code
 rr = diff(rr); %First compute the fGn = diff(fBm).
