@@ -57,8 +57,8 @@ def myregress(tC,RSave,plotFlag):
     x = np.log2(tC)
     y = np.log2(RSave)
     m,n,r_value,p_value,stderr = stats.linregress(x,y)
-    barrasError = np.abs(rint[:,0]-r)
-    H = np.abs(c(2))
+    #barrasError = np.abs(rint[:,0]-r)
+    H = np.abs(m)
 
     #Plot
     if plotFlag:
@@ -68,40 +68,47 @@ def myregress(tC,RSave,plotFlag):
         
     return H
 
-rw = random_walk(1100)
-rw = np.diff(rw) #First compute the fGn = diff(fBm)
+#rw = random_walk(1100)
 
-maxPot2 = 2**np.floor(np.log2(len(rw)))
-datosAux = rw[0:int(maxPot2)];
-tamCaja = int(maxPot2)
-numIter = 1
-RSave = []
-cajas = 1
-tC = [tamCaja]
-while(tamCaja >= 8):
-    inds = []
-    m = 0 #index in python begins in 0
-    for l in range(cajas): #Index for this segment lenght
-        indsaux = np.arange(m,m+tamCaja)
-        m = m + tamCaja
-        inds.append(indsaux)
+
+
+def hurst(rw):
+    """
+    Comentar este método!
+    """
+    rw = np.diff(rw) #First compute the fGn = diff(fBm)
+    maxPot2 = 2**np.floor(np.log2(len(rw)))
+    datosAux = rw[0:int(maxPot2)];
+    tamCaja = int(maxPot2)
+    numIter = 1
+    RSave = []
+    cajas = 1
+    tC = [tamCaja]
+    while(tamCaja >= 8):
+        inds = []
+        m = 0 #index in python begins in 0
+        for l in range(cajas): #Index for this segment lenght
+            indsaux = np.arange(m,m+tamCaja)
+            m = m + tamCaja
+            inds.append(indsaux)
 
     
-    RSiter = []
-    for ind in inds: #RS compute for this segment length
-        RSaux = rs_calc(datosAux[ind])
-        RSiter.append(RSaux)   
+        RSiter = []
+        for ind in inds: #RS compute for this segment length
+            RSaux = rs_calc(datosAux[ind])
+            RSiter.append(RSaux)   
     
-    RSave.append(np.mean(RSiter))
-    numIter = numIter + 1
-    tamCaja = int(tamCaja / 2)
-    cajas = 2**(numIter-1)
-    tC.append(tamCaja)
+        RSave.append(np.mean(RSiter))
+        numIter = numIter + 1
+        tamCaja = int(tamCaja / 2)
+        cajas = 2**(numIter-1)
+        tC.append(tamCaja)
 
-tC = tC[0:-1]
+    tC = tC[0:-1]
 
-myregress(tC,RSave,1)
+    H = myregress(tC,RSave,0)
 
+    return H
 """matlab code
 rr = diff(rr); %First compute the fGn = diff(fBm).
 maxPot2 = 2.^floor(log2(length(rr)));
