@@ -89,3 +89,6 @@ def get_indices(folder = './DATOS_HISTORICOS_INDICES/'):
     indices['SSEC'] = ssec
     
     return indices
+
+
+indices = get_indices()
