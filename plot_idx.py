@@ -5,7 +5,7 @@ Created on Fri Apr  5 12:49:02 2019
 
 @author: Lau
 """
-
+from tfg_utils import *
 
 for k in idx.keys():
     ii = idx[k] #array index, k=noun index
@@ -32,4 +32,11 @@ for k in idx.keys():
     xlabel('Tiempo')
     plt.xticks([pos0,pos1,pos2,pos3,pos4],[fechas[pos0], fechas[pos1], fechas[pos2], fechas[pos3], fechas[pos4]])
     ylabel('Precio de cierre')
+    
+    #segment each index
+    segment1 = ii[:pos[1]+1]
+    segment2 = ii[pos[1]+1:pos[2]+1]
+    segment3 = ii[pos[2]+1:pos[3]+1]
+    segment4 = ii[pos[3]+1:pos[4]+1]
+    segment5 = ii[pos[4]+1:]
     
