@@ -6,6 +6,7 @@ Created on Fri Apr  5 12:49:02 2019
 @author: Lau
 """
 from tfg_utils import *
+from ts_fractals_tools import *
 
 for k in idx.keys():
     ii = idx[k] #array index, k=noun index
@@ -40,3 +41,20 @@ for k in idx.keys():
     segment4 = ii[pos[3]+1:pos[4]+1]
     segment5 = ii[pos[4]+1:]
     
+    #hurst
+    hurst1 = hurst(segment1)
+    hurst2 = hurst(segment2)
+    hurst3 = hurst(segment3)
+    hurst4 = hurst(segment4)
+    hurst5 = hurst(segment5)
+    
+    #spectrum
+    spectrum1 = spectrum1f(segment1)
+    w = w1
+    spectrum2 = spectrum1f(segment2)
+    w2 = w1
+    spectrum3 = spectrum1f(segment3)
+    w3 = w1
+    spectrum4 = spectrum1f(segment4)
+    w4 = w1
+    spectrum5 = spectrum1f(segment5)

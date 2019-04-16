@@ -142,3 +142,32 @@ tC = tC(1:end-1);
 
 
 """
+#funcion calculo de exponente 1/f^alpha
+
+def spectrum1f(signal,welch = True):
+    """
+    Estimate power fractal exponent using psd 1/f
+    if welch == True then spectrum is estimated using Welch's periodogram. Otherwise periodogram is used.
+    """
+    
+    #psd estimaton
+    if welch:
+        f_aux, pxx = sig.welch(signal)
+        f = f_aux[f_aux>0]
+        pxx = pxx[f_aux>0]
+    else:
+        sig_fft = np.fft.fft(signal)
+        pxx = 1/len(signal)*np.abs(sig_fft)**2
+        f_aux = np.fft.fftfreq(len(signal))
+        pxx = np.fft.fftshift(pxx)
+        f_aux = np.fft.fftshift(f_aux)
+        f = f_aux[f_aux>0]
+        pxx = pxx[f_aux>0]
+        
+    #power-law exponent estimation
+    eps = np.finfo(float).eps
+    x = np.log(f + eps)
+    y = np.log(pxx)
+
+    w1, w0, r_value, p_value, std_err = stats.linregress(x,y)
+    return f, pxx, w1, w0
