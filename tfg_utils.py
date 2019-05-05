@@ -92,4 +92,4 @@ def get_indices(folder = './DATOS_HISTORICOS_INDICES/'):
     
     return indices
 
-idx = get_indices() #indices dic
+#idx = get_indices() #indices dic
