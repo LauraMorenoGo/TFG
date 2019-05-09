@@ -29,28 +29,28 @@ for k in ['AEX']:
     pos.append(np.where(fechas == '02.01.2019')[0])
     pos = np.array(pos)
     pos = pos.flatten()
-    
+    pos = pos[-1::-1]
     
     print(pos, k)
 
     #plot each index
     plt.figure()
-    plt.plot(price)
+    plt.plot(price, label = k)
     print(k)
-    plt.legend([k])
+    #plt.legend(k)
     plt.legend(loc='upper right')
     title('Representación índices')
     xlabel('Tiempo')
     
-   # plt.xticks([for k in pos],[fechas[for k in pos]])
-   # plt.xticks([pos0,pos1,pos2,pos3,pos4],[fechas[pos0], fechas[pos1], fechas[pos2], fechas[pos3], fechas[pos4]])
+    #plt.xticks([for k in pos],[fechas[for k in pos]])
+    plt.xticks([pos0,pos1,pos2,pos3,pos4],[fechas[pos4], fechas[pos3], fechas[pos2], fechas[pos1], fechas[pos0]], size = 'small', rotation = 45)
     ylabel('Precio de cierre')
     
     #segment each index
-    segment1 = price[:pos[1]+1]
-    segment2 = price[pos[1]+1:pos[2]+1]
-    segment3 = price[pos[2]+1:pos[3]+1]
-    segment4 = price[pos[3]+1:pos[4]+1]
+    segment1 = price[:pos[1]]
+    segment2 = price[pos[1]+1:pos[2]]
+    segment3 = price[pos[2]+1:pos[3]]
+    segment4 = price[pos[3]+1:pos[4]]
     segment5 = price[pos[4]+1:]
     
     #hurst
