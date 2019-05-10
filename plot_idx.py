@@ -16,6 +16,8 @@ for k in ['AEX']:
     fechas = ii[0]  #date index
     price = ii[1]   #price index
     
+    #reverse fechas
+    fechas = fechas[-1::-1]
     #to reverse data
     price = price[-1::-1]
     
@@ -29,7 +31,7 @@ for k in ['AEX']:
     pos.append(np.where(fechas == '02.01.2019')[0])
     pos = np.array(pos)
     pos = pos.flatten()
-    pos = pos[-1::-1]
+    #pos = pos[-1::-1]
     
     print(pos, k)
 
@@ -43,7 +45,11 @@ for k in ['AEX']:
     xlabel('Tiempo')
     
     #plt.xticks([for k in pos],[fechas[for k in pos]])
-    plt.xticks([pos0,pos1,pos2,pos3,pos4],[fechas[pos4], fechas[pos3], fechas[pos2], fechas[pos1], fechas[pos0]], size = 'small', rotation = 45)
+    plt.plot(t[:pos[0]],price[0:pos[0]])
+    plt.plot(t[pos[0]:pos[1]],price[pos[0]:pos[1]])
+    plt.plot(t[pos[1]:pos[2]],price[pos[1]:pos[2]])
+    plt.plot(t[pos[2]:pos[3]],price[pos[2]:pos[3]])
+    plt.xticks(pos,fechas[pos], size = 'small', rotation = 45)
     ylabel('Precio de cierre')
     
     #segment each index
@@ -59,6 +65,7 @@ for k in ['AEX']:
     hurst3 = hurst(segment3)
     hurst4 = hurst(segment4)
     hurst5 = hurst(segment5)
+    h = np.array([hurst1,hurst2,hurst3,hurst4,hurst5])
     
     #spectrum, get the last value for w1a
     spectrum1 = spectrum1f(segment1)
