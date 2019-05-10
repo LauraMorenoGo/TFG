@@ -18,9 +18,12 @@ for k in ['AEX']:
     
     #reverse fechas
     fechas = fechas[-1::-1]
+    
     #to reverse data
     price = price[-1::-1]
     
+    t = np.arange(len(price))
+
     #get date position
     pos = []
     
@@ -39,18 +42,18 @@ for k in ['AEX']:
     plt.figure()
     plt.plot(price, label = k)
     print(k)
-    #plt.legend(k)
     plt.legend(loc='upper right')
     title('Representación índices')
-    xlabel('Tiempo')
-    
-    #plt.xticks([for k in pos],[fechas[for k in pos]])
+    xlabel('Periodos más representativos')
+    ylabel('Precios de cierre')
+
+    #index with colours 
     plt.plot(t[:pos[0]],price[0:pos[0]])
     plt.plot(t[pos[0]:pos[1]],price[pos[0]:pos[1]])
     plt.plot(t[pos[1]:pos[2]],price[pos[1]:pos[2]])
     plt.plot(t[pos[2]:pos[3]],price[pos[2]:pos[3]])
     plt.xticks(pos,fechas[pos], size = 'small', rotation = 45)
-    ylabel('Precio de cierre')
+    
     
     #segment each index
     segment1 = price[:pos[1]]
@@ -66,6 +69,11 @@ for k in ['AEX']:
     hurst4 = hurst(segment4)
     hurst5 = hurst(segment5)
     h = np.array([hurst1,hurst2,hurst3,hurst4,hurst5])
+    plt.figure()
+    plt.plot(h,'o', label = k)
+    plt.legend(loc='upper right')
+    title('Exponente de Hurst')
+
     
     #spectrum, get the last value for w1a
     spectrum1 = spectrum1f(segment1)
