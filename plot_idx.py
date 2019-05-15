@@ -62,6 +62,15 @@ for k in ['AEX']:
     segment4 = price[pos[3]+1:pos[4]]
     segment5 = price[pos[4]+1:]
     
+    #xcorr for each index
+    x = segment1
+    y = segment2(:772)
+    xcorr12= plt.xcorr(x, y, normed=True, usevlines=True, maxlags=10, data=None)
+    plt.figure()
+    plt.plot(xcorr12, label = 'Correlación cruzada del segmento 1 y el segmento 2')
+    plt.legend(loc='upper right')
+
+    
     #hurst
     hurst1 = hurst(segment1)
     hurst2 = hurst(segment2)
