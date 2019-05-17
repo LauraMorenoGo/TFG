@@ -39,7 +39,7 @@ for k in ['AEX']:
     print(pos, k)
 
     #plot each index
-    plt.figure()
+    plt.figure(1)
     plt.plot(price, label = k)
     print(k)
     plt.legend(loc='upper right')
@@ -62,14 +62,47 @@ for k in ['AEX']:
     segment4 = price[pos[3]+1:pos[4]]
     segment5 = price[pos[4]+1:]
     
-    #xcorr for each index
+    #xcorr for segment1
     x = segment1
-    y = segment2(:772)
-    xcorr12= plt.xcorr(x, y, normed=True, usevlines=True, maxlags=10, data=None)
-    plt.figure()
-    plt.plot(xcorr12, label = 'Correlación cruzada del segmento 1 y el segmento 2')
+    y = segment1
+    xcorr1= plt.xcorr(x, y, normed=True, usevlines=True, maxlags=10, data=None)
+    plt.figure(2)
+    plt.plot(xcorr1, label = 'Autocorrelación segmento 1')
+    plt.legend(loc='upper right')
+    #plt.hold(False)
+
+    #xcorr for segment2
+    x = segment2
+    y = segment2
+    xcorr2= plt.xcorr(x, y, normed=True, usevlines=True, maxlags=10, data=None)
+    plt.figure(3)
+    plt.plot(xcorr2, label = 'Autocorrelación segmento 2')
     plt.legend(loc='upper right')
 
+    #xcorr for segment3
+    x = segment3
+    y = segment3
+    xcorr3= plt.xcorr(x, y, normed=True, usevlines=True, maxlags=10, data=None)
+    plt.figure(4)
+    plt.plot(xcorr3, label = 'Autocorrelación segmento 3')
+    plt.legend(loc='upper right')
+    plt.show()
+
+    #xcorr for segment4
+    x = segment4
+    y = segment4
+    xcorr4= plt.xcorr(x, y, normed=True, usevlines=True, maxlags=10, data=None)
+    plt.figure(5)
+    plt.plot(xcorr4, label = 'Autocorrelación segmento 4')
+    plt.legend(loc='upper right')
+
+    #xcorr for segment5
+    x = segment5
+    y = segment5
+    xcorr5= plt.xcorr(x, y, normed=True, usevlines=True, maxlags=10, data=None)
+    plt.figure(6)
+    plt.plot(xcorr5, label = 'Autocorrelación segmento 5')
+    plt.legend(loc='upper right')
     
     #hurst
     hurst1 = hurst(segment1)
@@ -78,7 +111,7 @@ for k in ['AEX']:
     hurst4 = hurst(segment4)
     hurst5 = hurst(segment5)
     h = np.array([hurst1,hurst2,hurst3,hurst4,hurst5])
-    plt.figure()
+    plt.figure(7)
     plt.plot(h,'o', label = k)
     plt.legend(loc='upper right')
     title('Exponente de Hurst')
