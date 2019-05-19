@@ -39,20 +39,25 @@ for k in ['AEX']:
     print(pos, k)
 
     #plot each index
-    plt.figure(1)
+    plt.figure()
     plt.plot(price, label = k)
     print(k)
     plt.legend(loc='upper right')
+    plt.xticks(pos,fechas[pos], size = 'small', rotation = 45)
     title('Representación índices')
     xlabel('Periodos más representativos')
     ylabel('Precios de cierre')
-
+ 
     #index with colours 
     plt.plot(t[:pos[0]],price[0:pos[0]])
     plt.plot(t[pos[0]:pos[1]],price[pos[0]:pos[1]])
     plt.plot(t[pos[1]:pos[2]],price[pos[1]:pos[2]])
     plt.plot(t[pos[2]:pos[3]],price[pos[2]:pos[3]])
+    plt.plot(t[pos[3]:pos[4]],price[pos[3]:pos[4]])
     plt.xticks(pos,fechas[pos], size = 'small', rotation = 45)
+    title('Representación índices')
+    xlabel('Periodos más representativos')
+    ylabel('Precios de cierre')
     
     
     #segment each index
@@ -60,48 +65,48 @@ for k in ['AEX']:
     segment2 = price[pos[1]+1:pos[2]]
     segment3 = price[pos[2]+1:pos[3]]
     segment4 = price[pos[3]+1:pos[4]]
-    segment5 = price[pos[4]+1:]
     
     #xcorr for segment1
     x = segment1
     y = segment1
-    xcorr1= plt.xcorr(x, y, normed=True, usevlines=True, maxlags=10, data=None)
-    plt.figure(2)
-    plt.plot(xcorr1, label = 'Autocorrelación segmento 1')
-    plt.legend(loc='upper right')
-    #plt.hold(False)
-
+    plt.figure()
+    xcorr1= plt.xcorr(x, y, normed=True, usevlines=True, maxlags=None)
+    plt.plot(xcorr1[0],xcorr1[1],'-')
+    title('Autocorrelación segmento 1')
+    
     #xcorr for segment2
     x = segment2
     y = segment2
-    xcorr2= plt.xcorr(x, y, normed=True, usevlines=True, maxlags=10, data=None)
-    plt.figure(3)
-    plt.plot(xcorr2, label = 'Autocorrelación segmento 2')
-    plt.legend(loc='upper right')
+    plt.figure()
+    xcorr2= plt.xcorr(x, y, normed=True, usevlines=True, maxlags=None)
+    plt.plot(xcorr2[0],xcorr2[1],'-')
+    title('Autocorrelación segmento 2')
 
     #xcorr for segment3
     x = segment3
     y = segment3
-    xcorr3= plt.xcorr(x, y, normed=True, usevlines=True, maxlags=10, data=None)
-    plt.figure(4)
-    plt.plot(xcorr3, label = 'Autocorrelación segmento 3')
-    plt.legend(loc='upper right')
-    plt.show()
+    plt.figure()
+    xcorr3= plt.xcorr(x, y, normed=True, usevlines=True, maxlags=None)
+    plt.plot(xcorr3[0],xcorr3[1],'-')
+    title('Autocorrelación segmento 3')
 
+    #PREGUNTAR SI EN LA MEMORIA, EN EL CASO DE QUERER LAS AUTOCORRELACIONES SEPARADAS, PONGO LA FIGURA QUE SALE NEGRA O EL CONTORNO SOLO
     #xcorr for segment4
     x = segment4
     y = segment4
-    xcorr4= plt.xcorr(x, y, normed=True, usevlines=True, maxlags=10, data=None)
-    plt.figure(5)
-    plt.plot(xcorr4, label = 'Autocorrelación segmento 4')
-    plt.legend(loc='upper right')
+    plt.figure()
+    xcorr4= plt.xcorr(x, y, normed=True, usevlines=True, maxlags=None)
+    plt.plot(xcorr4[0],xcorr4[1],'-')
+    title('Autocorrelación segmento 4')
 
-    #xcorr for segment5
-    x = segment5
-    y = segment5
-    xcorr5= plt.xcorr(x, y, normed=True, usevlines=True, maxlags=10, data=None)
-    plt.figure(6)
-    plt.plot(xcorr5, label = 'Autocorrelación segmento 5')
+    #NO BORRAR, PREGUNTAR SI ME SIRVE O ES MEJOR POR SEPARADO
+    #Representación de todas las autocorrelaciones juntas
+    plt.figure()
+    plt.plot(xcorr1[0],xcorr1[1],'-', label = ('Autocorrelación segmento 1'))
+    plt.plot(xcorr2[0],xcorr2[1],'-', label = ('Autocorrelación segmento 2'))
+    plt.plot(xcorr3[0],xcorr3[1],'-', label = ('Autocorrelación segmento 3'))
+    plt.plot(xcorr4[0],xcorr4[1],'-', label = ('Autocorrelación segmento 4'))
+    title('Autocorrelación del índice AEX')
     plt.legend(loc='upper right')
     
     #hurst
@@ -109,9 +114,8 @@ for k in ['AEX']:
     hurst2 = hurst(segment2)
     hurst3 = hurst(segment3)
     hurst4 = hurst(segment4)
-    hurst5 = hurst(segment5)
-    h = np.array([hurst1,hurst2,hurst3,hurst4,hurst5])
-    plt.figure(7)
+    h = np.array([hurst1,hurst2,hurst3,hurst4])
+    plt.figure()
     plt.plot(h,'o', label = k)
     plt.legend(loc='upper right')
     title('Exponente de Hurst')
@@ -119,12 +123,15 @@ for k in ['AEX']:
     
     #spectrum, get the last value for w1a
     spectrum1 = spectrum1f(segment1)
-    w1 = spectrum1[-1]
+    w1 = spectrum1[-2]
     spectrum2 = spectrum1f(segment2)
-    w2 = spectrum2[-1]
+    w2 = spectrum2[-2]
     spectrum3 = spectrum1f(segment3)
-    w3 = spectrum3[-1]
+    w3 = spectrum3[-2]
     spectrum4 = spectrum1f(segment4)
-    w4 = spectrum4[-1]
-    spectrum5 = spectrum1f(segment5)
-    w5 = spectrum5[-1]
+    w4 = spectrum4[-2]
+    spect = np.array([w1,w2,w3,w4])
+    plt.figure()
+    plt.plot(h,'o', label = k)
+    plt.legend(loc='upper right')
+    title('Spectrum')

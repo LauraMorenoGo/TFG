@@ -13,6 +13,4 @@ segment1 = idx[:pos[1]+1]
 segment2 = idx[pos[1]+1:pos[2]+1]
 segment3 = idx[pos[2]+1:pos[3]+1]
 segment4 = idx[pos[3]+1:pos[4]+1]
-segment5 = idx[pos[4]+1:]
-
 print(segment1)
