@@ -10,8 +10,8 @@ from ts_fractals_tools import *
 
 idx = get_indices()
 
-
-for k in ['AEX']:
+for k in idx:
+#for k in ['AEX']:
     ii = idx[k] #array index, k=noun index
     fechas = ii[0]  #date index
     price = ii[1]   #price index
@@ -55,7 +55,8 @@ for k in ['AEX']:
     plt.plot(t[pos[2]:pos[3]],price[pos[2]:pos[3]])
     plt.plot(t[pos[3]:pos[4]],price[pos[3]:pos[4]])
     plt.xticks(pos,fechas[pos], size = 'small', rotation = 45)
-    title('Representación índices')
+    suptitle('Representación índices')
+    title(k)
     xlabel('Periodos más representativos')
     ylabel('Precios de cierre')
     
@@ -106,7 +107,8 @@ for k in ['AEX']:
     plt.plot(xcorr2[0],xcorr2[1],'-', label = ('Autocorrelación segmento 2'))
     plt.plot(xcorr3[0],xcorr3[1],'-', label = ('Autocorrelación segmento 3'))
     plt.plot(xcorr4[0],xcorr4[1],'-', label = ('Autocorrelación segmento 4'))
-    title('Autocorrelación del índice AEX')
+    title(k)
+    suptitle("Autocorrelación")
     plt.legend(loc='upper right')
     
     #hurst
@@ -118,8 +120,8 @@ for k in ['AEX']:
     plt.figure()
     plt.plot(h,'o', label = k)
     plt.legend(loc='upper right')
-    title('Exponente de Hurst')
-
+    suptitle('Exponente de Hurst')
+    title(k)
     
     #spectrum, get the last value for w1a
     spectrum1 = spectrum1f(segment1)
@@ -134,4 +136,5 @@ for k in ['AEX']:
     plt.figure()
     plt.plot(h,'o', label = k)
     plt.legend(loc='upper right')
-    title('Spectrum')
+    suptitle('Spectrum')
+    title(k)

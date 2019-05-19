@@ -87,7 +87,9 @@ plt.hist(hurst_segment_2, alpha = 0.2, label = ('Segmento 2'))
 plt.hist(hurst_segment_3, alpha = 0.3, label = ('Segmento 3'))
 plt.hist(hurst_segment_4, alpha = 0.4, label = ('Segmento 4'))
 plt.legend()
-title('Bootstrap Exponente de Hurst para AEX')
+suptitle('Bootstrap Exponente de Hurst')
+title(k)
+
 
 #Representación mediante histograma del análisis estadístico mediante bootstrap de spectrum
 plt.figure()
@@ -96,18 +98,22 @@ plt.hist(spectrum_segment_2[-2], alpha = 0.2, label = ('Segmento 2'))
 plt.hist(spectrum_segment_3[-2], alpha = 0.3, label = ('Segmento 3'))
 plt.hist(spectrum_segment_4[-2], alpha = 0.4, label = ('Segmento 4'))
 plt.legend()
-title('Bootstrap para Spectrum de AEX')
+suptitle('Bootstrap para Spectrum')
+title(k)
+
 
 #Reoresentación de la desviación del exponente de Hurst
 plt.figure()
 std = [np.std(hurst_segment_1),np.std(hurst_segment_2),np.std(hurst_segment_3),np.std(hurst_segment_4)]
 std_vector = np.array(std)
-plt.errorbar(np.arange(4),h,std_vector,marker='o')
-title('Desviación para los exponentes de Hurst del AEX')
+plt.errorbar(np.arange(4),h,std_vector,fmt='o')
+suptitle('Desviación para los exponentes de Hurst')
+title(k)
 
 #Reoresentación de la desviación del exponente de Hurst
 plt.figure()
 std_spect = [np.std(spectrum_segment_1[-2]),np.std(spectrum_segment_2[-2]),np.std(spectrum_segment_3[-2]),np.std(spectrum_segment_4[-2])]
 std_vector_spect = np.array(std_spect)
 plt.errorbar(np.arange(4),spect,std_vector_spect,marker='o')
-title('Desviación para Spectrum de AEX')
+suptitle('Desviación para Spectrum')
+title(k)
