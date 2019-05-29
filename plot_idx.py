@@ -11,6 +11,7 @@ from ts_fractals_tools import *
 from arch.bootstrap import MovingBlockBootstrap
 import numpy as np
 import matplotlib.pyplot as plt
+from bootstrap_ex import *
 
 
 def plot_idx_func():
@@ -152,3 +153,4 @@ def plot_idx_func():
         
         bootstrap_index(segment1,segment2,segment3,segment4)
        
+plot_idx_func()

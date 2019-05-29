@@ -8,8 +8,9 @@ Created on Fri May 10 11:26:48 2019
 
 #bootstrap
 from arch.bootstrap import MovingBlockBootstrap
-from plot_idx import *
+#from plot_idx import *
 from tfg_utils import *
+from ts_fractals_tools import *
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -18,7 +19,7 @@ def bootstrap_index(segment1,segment2,segment3,segment4):
     """
     
     """
-    np.random.seed('1947')
+    np.random.seed(1947)
     
     block_size = 200 #let's use a different according to acf
     
