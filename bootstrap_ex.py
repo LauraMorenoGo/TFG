@@ -15,7 +15,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def bootstrap_index(k,segment1,segment2,segment3,segment4,h,spect):
+def bootstrap_index(k,segment1,segment2,segment3,segment4,h,spect,h_est):
     """
     
     """
@@ -125,13 +125,36 @@ def bootstrap_index(k,segment1,segment2,segment3,segment4,h,spect):
     plt.hist(spectrum_segment_4, alpha = 0.4, label = ('Segmento 4'))
     plt.legend()
     
+    #Representación mediante histograma del análisis estadístico mediante bootstrap de h estimada
+    h1_est = (spectrum_segment_1-1)/2
+    h2_est = (spectrum_segment_2-1)/2
+    h3_est = (spectrum_segment_3-1)/2
+    h4_est = (spectrum_segment_4-1)/2
+    plt.figure()
+    suptitle('Bootstrap para H estimada')
+    title(k)
+    subplot(2,2,1)
+    plt.hist(h1_est, alpha = 0.5, label = ('Segmento 1'))
+    plt.legend()
+    subplot(2,2,2)
+    plt.hist(h2_est, alpha = 0.2, label = ('Segmento 2'))
+    plt.legend()
+    subplot(2,2,3)
+    plt.hist(h3_est, alpha = 0.3, label = ('Segmento 3'))
+    plt.legend()
+    subplot(2,2,4)
+    plt.hist(h4_est, alpha = 0.4, label = ('Segmento 4'))
+    plt.legend()
+    
     #Reoresentación de la desviación del exponente de Hurst
     plt.figure()
     std = [np.std(hurst_segment_1),np.std(hurst_segment_2),np.std(hurst_segment_3),np.std(hurst_segment_4)]
     std_vector = np.array(std)
     plt.errorbar(np.arange(4),h,std_vector,marker='o')
-    suptitle('Desviación para los exponentes de Hurst')
+    suptitle('Desviación para los Exponentes de Hurst')
     title(k)
+    xticks(np.arange(4), ('2001-2004', '2004-2008', '2008-2014', '2014-2019'), rotation= 45)
+    plt.tight_layout()
     
     #Reoresentación de la desviación de spectrum
     plt.figure()
@@ -140,3 +163,15 @@ def bootstrap_index(k,segment1,segment2,segment3,segment4,h,spect):
     plt.errorbar(np.arange(4),spect,std_vector_spect,marker='o')
     suptitle('Desviación para Spectrum')
     title(k)
+    xticks(np.arange(4), ('2001-2004', '2004-2008', '2008-2014', '2014-2019'), rotation= 45)
+    plt.tight_layout()
+
+    #Reoresentación de la desviación de h estimada
+    plt.figure()
+    std_h_est = [np.std(h1_est),np.std(h2_est),np.std(h3_est),np.std(h4_est)]
+    std_vector_h_est = np.array(std_h_est)
+    plt.errorbar(np.arange(4),h_est,std_vector_h_est,marker='o')
+    suptitle('Desviación para H estimada')
+    title(k)
+    xticks(np.arange(4), ('2001-2004', '2004-2008', '2008-2014', '2014-2019'), rotation= 45)
+    plt.tight_layout()

@@ -70,7 +70,7 @@ def plot_idx_func():
         title(k)
         xlabel('Periodos más representativos')
         ylabel('Precios de cierre')
-        plt.tight_layout()
+        plt.tight_layout()  #sirve para que el eje x se vea cuando guardo la imagen
         
         
         #segment each index
@@ -151,6 +151,14 @@ def plot_idx_func():
         #suptitle('Spectrum')
         #title(k)
         
-        bootstrap_index(k,segment1,segment2,segment3,segment4,h,spect)
+        #Vamos a sacar la h estimada H=(beta-1)/2
+        h1_est = (w1-1)/2
+        h2_est = (w2-1)/2
+        h3_est = (w3-1)/2
+        h4_est = (w4-1)/2
+        h_est = np.array([h1_est,h2_est,h3_est,h4_est])
+        
+        
+        bootstrap_index(k,segment1,segment2,segment3,segment4,h,spect,h_est)
        
 plot_idx_func()
