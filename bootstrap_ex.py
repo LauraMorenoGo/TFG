@@ -15,7 +15,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def bootstrap_index(segment1,segment2,segment3,segment4):
+def bootstrap_index(k,segment1,segment2,segment3,segment4,h,spect):
     """
     
     """
@@ -91,30 +91,39 @@ def bootstrap_index(segment1,segment2,segment3,segment4):
     
     #Representación mediante histograma del análisis estadístico mediante bootstrap del exponente de Hurst
     plt.figure()
+    suptitle('Bootstrap Exponente de Hurst')
+    title(k)
     subplot(2,2,1)
     plt.hist(hurst_segment_1, alpha = 0.5, label = ('Segmento 1'))
+    plt.legend()
     subplot(2,2,2)
     plt.hist(hurst_segment_2, alpha = 0.2, label = ('Segmento 2'))
+    plt.legend()
     subplot(2,2,3)
     plt.hist(hurst_segment_3, alpha = 0.3, label = ('Segmento 3'))
+    plt.legend()
     subplot(2,2,4)
     plt.hist(hurst_segment_4, alpha = 0.4, label = ('Segmento 4'))
     plt.legend()
-    suptitle('Bootstrap Exponente de Hurst')
-    title(k)
+    
     
     
     #Representación mediante histograma del análisis estadístico mediante bootstrap de spectrum
     plt.figure()
-    plt.hist(spectrum_segment_1, alpha = 0.5, label = ('Segmento 1'))
-    plt.hist(spectrum_segment_2, alpha = 0.2, label = ('Segmento 2'))
-    plt.hist(spectrum_segment_3, alpha = 0.3, label = ('Segmento 3'))
-    plt.hist(spectrum_segment_4, alpha = 0.4, label = ('Segmento 4'))
-    plt.legend()
     suptitle('Bootstrap para Spectrum')
     title(k)
-    
-    
+    subplot(2,2,1)
+    plt.hist(spectrum_segment_1, alpha = 0.5, label = ('Segmento 1'))
+    plt.legend()
+    subplot(2,2,2)
+    plt.hist(spectrum_segment_2, alpha = 0.2, label = ('Segmento 2'))
+    plt.legend()
+    subplot(2,2,3)
+    plt.hist(spectrum_segment_3, alpha = 0.3, label = ('Segmento 3'))
+    plt.legend()
+    subplot(2,2,4)
+    plt.hist(spectrum_segment_4, alpha = 0.4, label = ('Segmento 4'))
+    plt.legend()
     
     #Reoresentación de la desviación del exponente de Hurst
     plt.figure()

@@ -151,6 +151,6 @@ def plot_idx_func():
         #suptitle('Spectrum')
         #title(k)
         
-        bootstrap_index(segment1,segment2,segment3,segment4)
+        bootstrap_index(k,segment1,segment2,segment3,segment4,h,spect)
        
 plot_idx_func()
