@@ -15,9 +15,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def bootstrap_index(k,segment1,segment2,segment3,segment4,h,spect,h_est):
+def bootstrap_index(k,segment1,segment2,segment3,segment4,h,spect):
     """
-    
+    Moving block bootstrap for financial signal
     """
     np.random.seed(1947)
     
@@ -105,9 +105,7 @@ def bootstrap_index(k,segment1,segment2,segment3,segment4,h,spect,h_est):
     subplot(2,2,4)
     plt.hist(hurst_segment_4, alpha = 0.4, label = ('Segmento 4'))
     plt.legend()
-    
-    
-    
+      
     #Representación mediante histograma del análisis estadístico mediante bootstrap de spectrum
     plt.figure()
     suptitle('Bootstrap para Spectrum')
@@ -134,6 +132,7 @@ def bootstrap_index(k,segment1,segment2,segment3,segment4,h,spect,h_est):
     h2_est_1f = (np.abs(spectrum_segment_2)-1)/2
     h3_est_1f = (np.abs(spectrum_segment_3)-1)/2
     h4_est_1f = (np.abs(spectrum_segment_4)-1)/2
+    h_est_1f = np.array([h1_est_1f,h2_est_1f,h3_est_1f,h4_est_1f])
     plt.figure()
     suptitle('Bootstrap para H estimada')
     title(k)
@@ -160,7 +159,7 @@ def bootstrap_index(k,segment1,segment2,segment3,segment4,h,spect,h_est):
     xticks(np.arange(4), ('2001-2004', '2004-2008', '2008-2014', '2014-2019'), rotation= 45)
     plt.tight_layout()
     
-    #Reoresentación de la desviación de spectrum
+    #Representación de la desviación de spectrum
     plt.figure()
     std_spect = [np.std(spectrum_segment_1),np.std(spectrum_segment_2),np.std(spectrum_segment_3),np.std(spectrum_segment_4)]
     std_vector_spect = np.array(std_spect)
@@ -170,11 +169,11 @@ def bootstrap_index(k,segment1,segment2,segment3,segment4,h,spect,h_est):
     xticks(np.arange(4), ('2001-2004', '2004-2008', '2008-2014', '2014-2019'), rotation= 45)
     plt.tight_layout()
 
-    #Reoresentación de la desviación de h estimada
+    #Representación de la desviación de h estimada
     plt.figure()
     std_h_est = [np.std(h1_est_1f),np.std(h2_est_1f),np.std(h3_est_1f),np.std(h4_est_1f)]
     std_vector_h_est = np.array(std_h_est)
-    plt.errorbar(np.arange(4),h_est,std_vector_h_est,marker='o')
+    plt.errorbar(np.arange(4),h_est_1f,std_vector_h_est,marker='o')
     suptitle('Desviación para H estimada')
     title(k)
     xticks(np.arange(4), ('2001-2004', '2004-2008', '2008-2014', '2014-2019'), rotation= 45)
