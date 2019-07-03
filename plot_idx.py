@@ -152,13 +152,14 @@ def plot_idx_func():
         #title(k)
         
         #Vamos a sacar la h estimada H=(beta-1)/2
-        h1_est = (w1-1)/2
-        h2_est = (w2-1)/2
-        h3_est = (w3-1)/2
-        h4_est = (w4-1)/2
+        h1_est = (np.abs(w1)-1)/2
+        h2_est = (np.abs(w2)-1)/2
+        h3_est = (np.abs(w3)-1)/2
+        h4_est = (np.abs(w4)-1)/2
         h_est = np.array([h1_est,h2_est,h3_est,h4_est])
         
         
         bootstrap_index(k,segment1,segment2,segment3,segment4,h,spect)
+        
        
 plot_idx_func()
