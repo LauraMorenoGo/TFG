@@ -159,7 +159,7 @@ def plot_idx_func():
         h_est = np.array([h1_est,h2_est,h3_est,h4_est])
         
         
-        bootstrap_index(k,segment1,segment2,segment3,segment4,h,spect)
-        
+        hh,h_1f = bootstrap_index(k,segment1,segment2,segment3,segment4,h,spect)
+    return price,hh,h_1f
        
-plot_idx_func()
+price,hh,h_1f = plot_idx_func()

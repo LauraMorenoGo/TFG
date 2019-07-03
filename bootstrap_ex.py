@@ -153,30 +153,27 @@ def bootstrap_index(k,segment1,segment2,segment3,segment4,h,spect):
     plt.figure()
     std = [np.std(hurst_segment_1),np.std(hurst_segment_2),np.std(hurst_segment_3),np.std(hurst_segment_4)]
     std_vector = np.array(std)
-    plt.errorbar(np.arange(4),h,std_vector,marker='o')
-    suptitle('Desviación para los Exponentes de Hurst')
+    plt.errorbar(np.arange(4),h,std_vector,marker='o',label = 'H estimada con RS')
+#    suptitle('Desviación para los Exponentes de Hurst')
     title(k)
-    xticks(np.arange(4), ('2001-2004', '2004-2008', '2008-2014', '2014-2019'), rotation= 45)
+#    xticks(np.arange(4), ('2001-2004', '2004-2008', '2008-2014', '2014-2019'), rotation= 45)
     plt.tight_layout()
-    
-    #Representación de la desviación de spectrum
-   # plt.figure()
-   # std_spect = [np.std(h1_est_1f),np.std(h2_est_1f),np.std(h3_est_1f),np.std(h4_est_1f)]
-   # std_vector_spect = np.array(std_spect)
-   # plt.errorbar(np.arange(4),h_est_1f,std_vector_spect,marker='o')
-#    title(k)
-   # suptitle('Desviación para Spectrum')
- #   xticks(np.arange(4), ('2001-2004', '2004-2008', '2008-2014', '2014-2019'), rotation= 45)
-  #  plt.tight_layout()
-
-    #Representación de la desviación de h estimada
     
     h_e_1f = (np.abs(spect)-1)/2
-    plt.figure()
+   # plt.figure()
     std_h_est = [np.std(h1_est_1f),np.std(h2_est_1f),np.std(h3_est_1f),np.std(h4_est_1f)]
     std_vector_h_est = np.array(std_h_est)
-    plt.errorbar(np.arange(4),h_e_1f,std_vector_h_est,marker='o')
-    suptitle('Desviación para H estimada con método 1/f')
+    plt.errorbar(np.arange(4),h_e_1f,std_vector_h_est,marker='^', label = 'H estimada con 1f')
+ #   suptitle('Desviación para H estimada con método 1/f')
     title(k)
     xticks(np.arange(4), ('2001-2004', '2004-2008', '2008-2014', '2014-2019'), rotation= 45)
+    plt.legend()
+    plt.ylim((0.3,0.7))
+    
+    plt.hlines(0.5,0,3,colors = 'r',linestyles=':',linewidth = 0.4)
     plt.tight_layout()
+    
+    h_1f = (h_e_1f,h1_est_1f,h2_est_1f,h3_est_1f,h4_est_1f)
+    hh = (h,hurst_segment_1,hurst_segment_2,hurst_segment_3,hurst_segment_4)
+    
+    return hh,h_1f
