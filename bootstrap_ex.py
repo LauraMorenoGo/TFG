@@ -91,8 +91,8 @@ def bootstrap_index(k,segment1,segment2,segment3,segment4,h,spect):
     
     #Representación mediante histograma del análisis estadístico mediante bootstrap del exponente de Hurst
     plt.figure()
-    suptitle('Bootstrap Exponente de Hurst')
     title(k)
+    suptitle('Bootstrap Exponente de Hurst')
     subplot(2,2,1)
     plt.hist(hurst_segment_1, alpha = 0.5, label = ('Segmento 1'))
     plt.legend()
@@ -108,8 +108,8 @@ def bootstrap_index(k,segment1,segment2,segment3,segment4,h,spect):
       
     #Representación mediante histograma del análisis estadístico mediante bootstrap de spectrum
     plt.figure()
-    suptitle('Bootstrap para Spectrum')
     title(k)
+    suptitle('Bootstrap para Spectrum')
     subplot(2,2,1)
     plt.hist((np.abs(spectrum_segment_1)-1)/2, alpha = 0.5, label = ('Segmento 1'))
     plt.legend()
@@ -134,8 +134,8 @@ def bootstrap_index(k,segment1,segment2,segment3,segment4,h,spect):
     h4_est_1f = (np.abs(spectrum_segment_4)-1)/2
     h_est_1f = np.array([h1_est_1f,h2_est_1f,h3_est_1f,h4_est_1f])
     plt.figure()
-    suptitle('Bootstrap para H estimada')
     title(k)
+    suptitle('Bootstrap para H estimada')
     subplot(2,2,1)
     plt.hist(h1_est_1f, alpha = 0.5, label = ('Segmento 1'))
     plt.legend()
